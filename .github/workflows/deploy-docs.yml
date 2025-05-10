@@ -35,7 +35,7 @@ jobs:
           path: .vitepress/dist
 
       - name: 🔐 Deploy to VPS
-        uses: appleboy/scp-action@v0.1.4
+        uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
