@@ -43,3 +43,20 @@ jobs:
           source: ".vitepress/dist/*"
           target: "${{ vars.VPS_TARGET_DIR }}"
           debug: true
+
+      - name: 🧪 Unpack and verify files on VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            echo "📂 Listing files in target directory:"
+            ls -lah "${{ secrets.VPS_TARGET_DIR }}"
+
+            echo "📦 Extracting archive..."
+            mkdir -p "${{ secrets.VPS_TARGET_DIR }}/extracted"
+            tar -xzf "${{ secrets.VPS_TARGET_DIR }}/iKJKiukxNE.tar.gz" -C "${{ secrets.VPS_TARGET_DIR }}/extracted"
+
+            echo "🧾 Listing extracted contents:"
+            find "${{ secrets.VPS_TARGET_DIR }}/extracted"
